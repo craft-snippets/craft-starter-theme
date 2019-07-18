@@ -1,4 +1,3 @@
-{% verbatim %}
 # Introduction
 
 This is a starter theme for Craft CMS - it can be used as scaffolding for any project. It consists of:
@@ -155,4 +154,3 @@ Starter project has few useful config variables already set.
 
 * `'errorTemplatePrefix' => '_',` - thanks to that file responsible for 404 error (and other errors) will not be available directly if someone visits "404" URL.
 * `theme` - this array is supposed to contain all your custom variables that should be exposed to your Twig files. In twig files they can be retrieved like this: `{{craft.app.config.general.theme.someVariable}}`. One variable is already set (but commented out) - theme color used in `_system/meta.twig` file.
-{% endverbatim %}
