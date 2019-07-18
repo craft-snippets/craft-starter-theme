@@ -1,0 +1,40 @@
+{# v1 #}
+{# http://craftsnippets.com/articles/adding-favicons-to-craft-cms-website #}
+
+{# requires global with handle 'favicon' containing asset field with handle 'faviconFile' #}
+{% cache globally %} 
+{% set sizesIcon = [192, 48, 32, 16] %}
+{% set sizesAppleTouch = [180] %}
+{% if favicon is defined and favicon['faviconFile'] is defined and favicon.faviconFile.exists() and favicon.faviconFile.one().kind == 'image' %}
+{# link icon #}
+{% for faviconSize in sizesIcon %}
+{% set icon = favicon.faviconFile.one() %}
+{% set shorterEdge = icon.width > icon.height ? icon.height : icon.width %}
+{% if shorterEdge >= faviconSize %}
+{% set faviconTransform = {
+    width: faviconSize,
+    height: faviconSize,
+    quality: 100,
+    position: 'center-center',
+    format: 'png',
+} %}
+<link rel="icon" sizes="{{faviconSize ~ 'x' ~ faviconSize}}" type="image/png" href="{{icon.getUrl(faviconTransform)}}" />
+{% endif %}
+{% endfor %}
+{# link touch icon #}
+{% for faviconSize in sizesAppleTouch %}
+{% set icon = favicon.faviconFile.one() %}
+{% set shorterEdge = icon.width > icon.height ? icon.height : icon.width %}
+{% if shorterEdge >= faviconSize %}
+{% set faviconTransform = {
+    width: faviconSize,
+    height: faviconSize,
+    quality: 100,
+    position: 'center-center',
+    format: 'png',
+} %}
+<link rel="apple-touch-icon" sizes="{{faviconSize ~ 'x' ~ faviconSize}}" href="{{icon.getUrl(faviconTransform)}}" />
+{% endif %}
+{% endfor %}
+{% endif %}
+{% endcache %}

@@ -1,0 +1,57 @@
+{# truncate words my number of words #}
+{# http://craftsnippets.com/articles/truncating-text-with-twig-macros-in-craft-cms #}
+{# v1 #}
+{% macro truncateWords(text, length, suffix) %}
+{% spaceless %}
+{# settings #}
+{% set defaultSuffix = '...' %}
+{# logic #}
+{% if text and length %}
+{% set suffix = suffix|default(defaultSuffix) %}
+{% set text = text|striptags %}
+{% set text = text|replace('/\\n/', '\n ') %}
+{% set array = text|split(' ') %}
+{% set arrayTruncated = array|slice(0, length) %}
+{% set string = arrayTruncated|join(' ') %}
+{% if array|length > length %}
+    {% set string = string ~ suffix %}
+{% endif %}
+{% set string = string|replace('/\\n\\s/', '\n') %}
+{{ string }}
+{% endif %}
+{% endspaceless %}
+{% endmacro %}
+
+
+
+{# truncate text by number of characters #}
+{# http://craftsnippets.com/articles/truncating-text-with-twig-macros-in-craft-cms #}
+{# v1 #}
+{% macro truncateChars(text, limit, suffix) %}
+{% spaceless %}
+{# settings #}
+{% set defaultSuffix = '...' %}
+{# logic #}
+{% if text and limit %}
+{% set text = text|striptags %}
+{% set suffix = suffix|default(defaultSuffix) %}
+{% set stringy = create(
+    "Stringy\\Stringy",
+    [text]
+) %}
+{{ stringy.safeTruncate(limit, suffix) }}
+{% endif %}
+{% endspaceless %}
+{% endmacro %}
+
+
+
+{# turn email in strings into links and secure them from spambots #}
+{# http://craftsnippets.com/articles/converting-email-addresses-into-links-using-twig-macro #}
+{# v1 #}
+{% macro emailLinks(text, class) %}
+{% spaceless %}
+{% set text = text|replace('/([a-zA-Z0-9_.+-]+)+@([a-zA-Z0-9-]+.[a-zA-Z]+)/', '<a ' ~ (class ? 'class="' ~ class ~ '" ') ~ 'href="mailto:'~ '\\1&#64;\\2' ~'">'~ '\\1&#64;\\2' ~'</a>') %}
+{{text|raw}}
+{% endspaceless %}
+{% endmacro %}

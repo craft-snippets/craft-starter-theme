@@ -1,0 +1,21 @@
+{% if devMode %}
+
+    {% set staticFiles = [
+        'static/libs/jquery-3.4.1.min.js',
+        'static/main.css',
+        'static/js/main.js',
+    ] %}
+
+    {% for file in staticFiles %}
+        {% set type = file|split('.')|last %}
+        {% if type == 'js' %}
+            {% do view.registerJsFile(url(file)) %}
+        {% elseif type == 'css' %}
+            {% do view.registerCssFile(url(file)) %}
+        {% endif %}
+    {% endfor %} 
+
+{% else %}
+    {% do view.registerJsFile(url('static/main.min.js')) %}
+    {% do view.registerCssFile(url('static/main.min.css')) %}
+{% endif %}

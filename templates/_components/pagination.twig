@@ -1,0 +1,93 @@
+{# v3 #}
+{# http://craftsnippets.com/articles/ellipsis-pagination-component-for-craft-cms #}
+{# requires pageInfo variable #}
+
+{# settings #}
+{% set neighbours = 1 %}
+
+{# symbols #}
+{% set prev = '&#10094;' %}
+{% set next = '&#10095;' %}
+{% set dots = "&hellip;" %}
+
+{# single numeric link #}
+{% macro numericLink(url, number, current) %}
+<li>
+    <a href="{{url}}" data-number="{{number}}" class="pagination-link {{current ? 'is-current' : null}}" aria-label="{{current ? 'current page'|t : 'go to page'|t ~ ' ' ~ number}}" {{current ? 'aria-current="page"'}}>{{number}}</a>
+</li>
+{% endmacro %}
+
+{# next/prev link #}
+{% macro textLink(url, content, aria, number) %}
+<li>
+    <a href="{{url}}" data-number="{{number}}" class="pagination-link" aria-label="{{aria}}">{{content|raw}}</a>
+</li>
+{% endmacro %}
+
+{# ellipsis #}
+{% macro ellipsis(content) %}
+<li>
+    <span class="pagination-ellipsis">{{content|raw}}</span>
+</li>
+{% endmacro %}
+
+{# pagination logic #}
+{% if pageInfo is defined and pageInfo.totalPages > 1 %}
+{% import _self as self %}
+
+{# seomatic #}
+{# https://github.com/nystudio107/craft-seomatic#pagination-and-seo #}
+{% if seomatic is defined %}
+    {% do seomatic.helper.paginate(pageInfo) %}
+{% endif %}
+
+
+<nav class="pagination" role="navigation" aria-label="{{'pagination'|t}}">
+<ul class="pagination-list">
+
+    {# previous #}
+    {% if pageInfo.prevUrl %}
+        {{ self.textLink(pageInfo.prevUrl, prev, 'previous page'|t, pageInfo.currentPage - 1) }}
+    {% endif %}
+
+    {# first #}
+    {% if pageInfo.currentPage - neighbours > 1  %}
+        {{ self.numericLink(pageInfo.firstUrl, '1') }}
+    {% endif %}
+
+    {# ellipsis before current #}
+    {% if pageInfo.currentPage - neighbours > 2 %}
+        {{ self.ellipsis(dots) }}
+    {% endif %}
+
+    {# links before current #}
+    {% for page, url in pageInfo.getPrevUrls(neighbours) %}
+        {{ self.numericLink(url, page) }}
+    {% endfor %}
+
+    {# current #}
+    {{ self.numericLink('', pageInfo.currentPage, true) }}
+
+    {# links after current #}
+    {% for page, url in pageInfo.getNextUrls(neighbours) %}
+        {{ self.numericLink(url, page) }}
+    {% endfor %}
+
+    {# ellipsis after current #}
+    {% if pageInfo.totalPages - pageInfo.currentPage > neighbours + 1 %}
+        {{ self.ellipsis(dots) }}
+    {% endif %}
+
+    {# last #}
+    {% if pageInfo.currentPage + neighbours < pageInfo.totalPages %}
+        {{ self.numericLink(pageInfo.lastUrl, pageInfo.totalPages) }}
+    {% endif %}
+
+    {# next #}
+    {% if pageInfo.nextUrl %}
+        {{ self.textLink(pageInfo.nextUrl, next, 'next page'|t, pageInfo.currentPage + 1) }}
+    {% endif %}
+
+</ul>
+</nav>
+{% endif %}

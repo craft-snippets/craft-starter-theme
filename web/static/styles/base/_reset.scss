@@ -1,0 +1,111 @@
+*{
+	box-sizing:border-box;
+}
+
+ul,p{
+	margin:0px;
+}
+
+ul{
+	list-style:none;
+	padding:0px;
+}
+
+a, a:visited{
+	text-decoration:none;
+	text-decoration: none;
+}
+
+h1,
+h2,
+h3,
+h4,
+p,
+ol,
+ul {
+    margin: 0;
+    padding: 0;
+}
+
+button,a {
+    color: inherit;
+}
+
+img {
+    max-width: 100%;
+}
+
+h1,
+h2,
+h3,
+h4 {
+    font-size: inherit;
+}
+
+button, input[type="reset"], input[type="button"], input[type="submit"] { 
+    overflow: visible;
+    border: 0;
+    font: inherit;
+    -webkit-font-smoothing: inherit;
+    letter-spacing: inherit;
+    background: none;
+    cursor: pointer;
+    padding:0px; 
+}
+
+fieldset{
+  border:0px;
+  padding:0px;
+}
+
+
+textarea{
+  font-family: inherit;
+  font-size:inherit;
+  color:inherit;
+}
+
+// remove whitespace under image
+//https://getpocket.com/a/read/667377816
+img, svg{
+  vertical-align:text-bottom;
+}
+
+
+
+
+
+// remove safari rounded inputs
+input, textarea {
+  -webkit-appearance: none;
+  -webkit-border-radius: 0;
+}
+
+// display checkbox on safari
+input[type=checkbox]
+{
+  -webkit-appearance:checkbox;
+}
+
+
+ //Remove most spacing between table cells.
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+td,
+th {
+  padding: 0;
+}
+
+
+date{
+  display: inline-block;
+}
+
+// svg inheriting color
+svg{
+  fill: currentColor;
+  transition: fill 0.3s ease;
+}

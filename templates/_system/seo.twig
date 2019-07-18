@@ -1,0 +1,10 @@
+{% if not craft.app.plugins.isPluginEnabled('seomatic') %}
+{% if craft.app.urlManager.matchedElement and craft.app.urlManager.matchedElement.uri == '__home__' %}
+	{% set seoTitle = craft.app.urlManager.matchedElement.title %}
+{% elseif craft.app.urlManager.matchedElement %}
+	{% set seoTitle = craft.app.urlManager.matchedElement.title ~ ' - ' ~ siteName %}
+{% else %}
+	{% set seoTitle = siteName %}
+{% endif %}
+<title>{{ seoTitle }}</title>
+{% endif %}

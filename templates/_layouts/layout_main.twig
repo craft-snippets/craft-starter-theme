@@ -1,0 +1,18 @@
+{% extends '_layouts/base' %}
+
+{% block layout %}
+<div class="l-external-container">
+<div class="l-main">
+
+  	<div class="l-outside-footer">
+      	{% block content %}{% endblock %}
+    </div>
+
+  	<div class="l-footer-fixed">
+        {% include "_components/footer" %}
+    	{% block footer %}{% endblock %}
+    </div>
+
+</div>
+</div>
+{% endblock %}

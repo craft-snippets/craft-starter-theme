@@ -1,0 +1,31 @@
+// mobile container
+.container:not(.touch-full-width){
+	padding-left: 1rem;
+	padding-right: 1rem;
+	@include touch{
+		max-width: $mobile_container;
+	}
+}
+
+// fixed footer
+.l-main{
+	display: flex;
+	flex-direction: column;
+	min-height: 100vh;
+	background-color:$main_background;
+}
+
+.l-outside-footer{
+	flex: 1 0 auto;
+	-webkit-box-flex: 1;
+	-webkit-flex: 1 0 auto;
+	-ms-flex: 1 0 auto;
+}
+
+
+// external container
+.l-external-container{
+    max-width: $external_container_width;
+    background-color: $external_container_background;
+    margin: 0px auto;
+}

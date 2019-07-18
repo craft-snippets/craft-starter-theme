@@ -1,0 +1,49 @@
+{# v3 #}
+{# http://craftsnippets.com/articles/breadcrumb-created-from-url-for-craft-cms #}
+
+{# settings #}
+{% set nonElementLinks = false %}
+
+{# populate breadcrumbLinks array if no array of links was provided #}
+{% if breadcrumbLinks is not defined %}
+    {% set breadcrumbLinks = [] %}
+    {# home #}
+    {% set home = craft.app.getElements().getElementByUri('__home__', currentSite.id) %}
+    {% set breadcrumbLinks = breadcrumbLinks|merge([{
+        url: home.url ?? alias(currentSite.baseUrl),
+        title: home.title ?? 'homepage'|t,
+    }]) %}
+    
+    {# get elements #}
+    {% set segments = craft.app.request.segments %}
+    {% for segment in segments %}
+            {% set uriPart = segments[0:loop.index]|join('/')|literal %}
+            {% set element = craft.app.elements.getElementByUri(uriPart, currentSite.id) %}
+            {% if element %}
+                {% set breadcrumbLinks = breadcrumbLinks|merge([{
+                    url: element.url,
+                    title: element.title,
+                }]) %}
+            {% elseif nonElementLinks %}
+                {% set breadcrumbLinks = breadcrumbLinks|merge([{
+                    url: url(uriPart),
+                    title: segment|t,
+                }]) %}
+            {% endif %}
+    {% endfor %}
+{% endif %}
+
+{# render breadcrumb #}
+{% if breadcrumbLinks|length > 1 %}
+<nav class="breadcrumb" aria-label="{{'breadcrumbs'|t}}">
+    <ul itemscope itemtype="http://schema.org/BreadcrumbList">
+        {% for link in breadcrumbLinks %}
+            <li class="{{loop.last ? 'is-active'}}" {{loop.last ? 'aria-current="page"' }} itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+                <a href="{{link.url}}" itemtype="http://schema.org/Thing" itemprop="item">
+                    <span itemprop="name">{{ link.title }}</span>
+                </a>
+            </li>
+        {% endfor %}
+    </ul>
+</nav>
+{% endif %}

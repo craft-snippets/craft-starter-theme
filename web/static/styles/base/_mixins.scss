@@ -1,0 +1,17 @@
+
+@mixin selection($background, $text){
+
+    /* WebKit/Blink Browsers */
+    ::selection {
+      background: $background; 
+      color: $text;
+    }
+    
+    /* Gecko Browsers */
+    ::-moz-selection {
+      background: $background; 
+      color: $text;
+    }
+
+}
+
