@@ -7,4 +7,6 @@ This is a starter theme for Craft CMS - it can be used as scaffolding for any pr
 * Gulp config for compiling JS and CSS assets and running browsersync
 * Few useful Craft config settings
 
-** Documentation can be found on [http://craftsnippets.com/starter-theme-for-craft-cms](http://craftsnippets.com/starter-theme-for-craft-cms).**
+-------------------------
+
+**Documentation can be found on [http://craftsnippets.com/starter-theme-for-craft-cms](http://craftsnippets.com/starter-theme-for-craft-cms).**
