@@ -1,6 +1,8 @@
 {
   "require": {
-    "craftcms/cms": "3.1.34",
+    "clubstudioltd/craft-asset-rev": "6.0.2",
+    "craftcms/cms": "3.3.9",
+    "craftcms/redactor": "2.4.0",
     "vlucas/phpdotenv": "^2.4.0"
   },
   "autoload": {

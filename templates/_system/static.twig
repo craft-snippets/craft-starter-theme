@@ -8,14 +8,15 @@
 
     {% for file in staticFiles %}
         {% set type = file|split('.')|last %}
+        {% set file = alias('@web')~'/'~file %}
         {% if type == 'js' %}
-            {% do view.registerJsFile(url(file)) %}
+            {% do view.registerJsFile(file) %}
         {% elseif type == 'css' %}
-            {% do view.registerCssFile(url(file)) %}
+            {% do view.registerCssFile(file) %}
         {% endif %}
     {% endfor %} 
 
 {% else %}
-    {% do view.registerJsFile(url('static/main.min.js')) %}
-    {% do view.registerCssFile(url('static/main.min.css')) %}
+    {% do view.registerJsFile(alias('@web')~'/'~'static/main.min.js') %}
+    {% do view.registerCssFile(alias('@web')~'/'~'static/main.min.css') %}
 {% endif %}

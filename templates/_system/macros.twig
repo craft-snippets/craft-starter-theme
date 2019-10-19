@@ -46,7 +46,7 @@
 
 
 
-{# turn email in strings into links and secure them from spambots #}
+{# turns email in strings into links and secure them from spambots #}
 {# http://craftsnippets.com/articles/converting-email-addresses-into-links-using-twig-macro #}
 {# v1 #}
 {% macro emailLinks(text, class) %}
@@ -55,3 +55,72 @@
 {{text|raw}}
 {% endspaceless %}
 {% endmacro %}
+
+
+{# macro for formatting dates #}
+{# http://craftsnippets.com/articles/working-with-dates-in-craft-cms-templates #}
+{%- macro defaultDateFormat(date, additionalAttributes) -%}
+{# v1 #}
+{% if date is defined %}
+{# settings #}
+{% set format = 'medium' %}
+{# logic #}
+{% set attributes = {
+	text: date|date(format),
+	datetime: date|date('yy-m-d')
+} %}
+{% if additionalAttributes is defined and additionalAttributes is not iterable %}
+	{% set attributes = attributes|merge({class: additionalAttributes}) %}
+{% elseif additionalAttributes is iterable %}
+	{% set attributes = attributes|merge(additionalAttributes) %}
+{% endif %}
+{{tag('time',attributes)}}
+{% endif %}
+{%- endmacro -%}
+
+
+{# returns time elapsed since specific date in human readable format #}
+{# http://craftsnippets.com/articles/working-with-dates-in-craft-cms-templates #}
+{%- macro timeAgo(date, additionalAttributes) -%}
+{# v1 #}
+{% if date is defined %}
+{# settings #}
+{% set format = 'medium' %}
+{% set locale = currentSite.language %}
+{# logic #}
+{% set formatter = create({ class: 'craft\\i18n\\Formatter', locale: locale }) %}
+{% set attributes = {
+	text: formatter.asRelativeTime(date),
+	datetime: date|date('yy-m-d'),
+	title: date|date(format),
+} %}
+{% if additionalAttributes is defined and additionalAttributes is not iterable %}
+	{% set attributes = attributes|merge({class: additionalAttributes}) %}
+{% elseif additionalAttributes is iterable %}
+	{% set attributes = attributes|merge(additionalAttributes) %}
+{% endif %}
+{{tag('time',attributes)}}
+{% endif %}
+{%- endmacro -%}
+
+
+{# loads svg image from web root #}
+{# http://craftsnippets.com/articles/working-with-svg-images-in-craft-cms-templates #}
+{%- macro svg(path, attributes = null, alt = null) -%}
+{# v1 #}
+{# settings #}
+{% set directory = 'svg' %}
+{# logic #}
+{% if path is defined and path is not empty %}
+{% set svg = svg('@webroot/'~directory~'/'~path~'.svg') %}
+{% if alt %}
+	{% set svg = svg|prepend('<title>'~alt~'</title>') %}
+{% endif %}
+{% if attributes and attributes is not iterable %}
+	{% set svg = svg|attr({class: attributes}) %}
+{% elseif attributes and attributes is iterable %}
+	{% set svg = svg|attr(attributes) %}
+{% endif %}
+{{svg|raw}}
+{% endif %}
+{%- endmacro -%}
