@@ -9,7 +9,7 @@
 * added svg macro
 * Added default time format macro and time ago macro
 * Added `index.twig` file that can eb used to preview theme if no sections are set up yet
-* Adde dkint, cp field inspect and redactor plugins to composer
+* Added redactor plugin to composer.json
 
 ### Updated
 * Updated Craft to 3.3.9
