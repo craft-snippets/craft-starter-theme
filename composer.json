@@ -1,9 +1,11 @@
 {
   "require": {
-    "clubstudioltd/craft-asset-rev": "6.0.2",
-    "craftcms/cms": "3.3.9",
-    "craftcms/redactor": "2.4.0",
-    "vlucas/phpdotenv": "^2.4.0"
+    "craftcms/cms": "^3.6.4",
+    "craftcms/redactor": "^2.8",
+    "vlucas/phpdotenv": "^3.4.0"
+  },
+  "require-dev": {
+    "yiisoft/yii2-shell": "^2.0.3"
   },
   "autoload": {
     "psr-4": {
@@ -14,7 +16,7 @@
     "sort-packages": true,
     "optimize-autoloader": true,
     "platform": {
-      "php": "7.0"
+      "php": "7.2.5"
     }
   },
   "scripts": {
