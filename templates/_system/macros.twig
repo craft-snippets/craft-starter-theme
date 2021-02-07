@@ -106,13 +106,13 @@
 
 {# loads svg image from web root #}
 {# http://craftsnippets.com/articles/working-with-svg-images-in-craft-cms-templates #}
+{# v2 #}
 {%- macro svg(path, attributes = null, alt = null) -%}
-{# v1 #}
 {# settings #}
 {% set directory = 'svg' %}
 {# logic #}
 {% if path is defined and path is not empty %}
-{% set svg = svg('@webroot/'~directory~'/'~path~'.svg') %}
+{% set svg = svg('@webroot/'~directory~'/'~path~'.svg', namespace=true) %}
 {% if alt %}
 	{% set svg = svg|prepend('<title>'~alt~'</title>') %}
 {% endif %}

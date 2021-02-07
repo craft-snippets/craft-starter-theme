@@ -1,4 +1,4 @@
-{# v3 #}
+{# v4 #}
 {# http://craftsnippets.com/articles/breadcrumb-created-from-url-for-craft-cms #}
 
 {# settings #}
@@ -42,6 +42,7 @@
                 <a href="{{link.url}}" itemtype="http://schema.org/Thing" itemprop="item">
                     <span itemprop="name">{{ link.title }}</span>
                 </a>
+                <meta itemprop="position" content="{{loop.index}}" />
             </li>
         {% endfor %}
     </ul>

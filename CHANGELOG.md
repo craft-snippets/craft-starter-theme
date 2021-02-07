@@ -1,3 +1,22 @@
+## 2.1 - 07-02-2021
+
+### Updated
+
+* Updated Craft to 3.6.4
+* Updated Jquery to 3.5.2
+* Updated Bulma to 0.9.1
+* Updated Normalize css to 8.0.1
+
+### Added
+
+* Added email template component
+* Added language switcher component
+
+### Fixed
+
+* Svg macro - missing namespace param
+* Breadcrumb component - added meta position tag
+
 ## 2.0.1 - 2019-10-17
 
 ### Fixed

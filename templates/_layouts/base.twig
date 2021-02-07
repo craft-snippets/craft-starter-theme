@@ -1,5 +1,11 @@
 <!DOCTYPE HTML>
-<html lang="{{ currentSite.language }}" dir="{{craft.app.i18n.getLocaleById(currentSite.id).getOrientation()}}">
+
+{% set htmlAttr = {
+	lang: currentSite.language,
+	dir: craft.app.i18n.getLocaleById(currentSite.id).getOrientation(),
+} %}
+
+<html {{attr(htmlAttr)}}>
 <head>
 
 <!-- Template created by Piotr Pogorzelski - craftsnippets.com -->
@@ -10,15 +16,20 @@
 {% include '_system/fonts' %}
 {% include '_system/static' %}
 {% include '_system/tag_manager' %}
-{% block head %}{% endblock %}
 
 </head>
 
-<body class="{{body_class ?? null}} {{craft.app.request.isMobileBrowser() ? 'is-mobile' : 'is-desktop'}}">
+{% set bodyAttr = {
+	class: [
+		body_class ?? null,
+		craft.app.request.isMobileBrowser() ? 'is-mobile' : 'is-desktop',
+	]
+} %}
+
+<body {{attr(bodyAttr)}}>
 
 {% include '_components/quick_edit' %}
 {% block layout %}{% endblock %}
-{% block endBody %}{% endblock %}
 
 </body>
 </html>
