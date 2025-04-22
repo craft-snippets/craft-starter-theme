@@ -1,3 +1,5 @@
+> ⚠️ **DEPRECATED**: This repository is no longer maintained.
+
 # Craft CMS 3 Starter theme
 
 This is a starter theme for Craft CMS - it can be used as scaffolding for any project. It consists of:
